@@ -1,112 +1,86 @@
 // Assignment code here
-var lengthChoices = [8, 9, 10, 11, 12, 13, 14, 15, 16];
-var upperCaseChoices = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ').split;
-var lowerCaseChoices = ('abcdefghijklmnopqrstuvwxyz').split;
-var numberChoices = ('12345678910').split;
-var specialCharChoices = ('!@#$%^&*()-_=+').split;
+var lengthChoices = "";
+var upperCaseChoices = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+var lowerCaseChoices = ('abcdefghijklmnopqrstuvwxyz');
+var numberChoices = ('12345678910');
+var specialCharChoices = ('!@#$%^&*()-_=+');
+var combinedChoices = [];
+
+
+var arrayUpperCase = upperCaseChoices.split('');
+var arrayLowerCase = lowerCaseChoices.split('');
+var arrayNumber = numberChoices.split('');
+var arraySpecial = specialCharChoices.split('');
+
+//
+
+//
+
 
 
 //
-var randomUpperCase = function() {
-  if (upperCase == true) {
-  Math.floor(Math.random() * upperCaseChoices.length);
-  }
-}
-
-var randomLowerCase = function() {
-  if (lowerCase == true) {
-    Math.floor(Math.random() * lowerCaseChoices.length);
-  }
-}
-
-var randomNumber = function() {
-  if (numbers == true) {
-  Math.floor(Math.random() * numberChoices.length);
-  }
-}
-
-var randomSpecial = function() {
-  if (special == true) {
-  Math.floor(Math.random() * specialCharChoices.length);
-  }
-}
-//
-
-var passwordLength = window.prompt("How long do you want your password to be?\n(Between 8 and 16 Characters)");
-
-var upperCase = window.confirm("Would you like to include uppercase letters?");
-var lowerCase = window.confirm("Would you like to include lowercase letters?");
-var numbers = window.confirm("Would you like to include numbers?");
-var special = window.confirm("Lastly, would you like to include special characters?\nSuch as @, %, or &?");
-
-//
-var criteriaEntry = function() {
-  randomUpperCase();
-  randomLowerCase();
-  randomNumber();
-  randomSpecial();
-  criteriaEntry() * [passwordLength];
-}
 
 
-var generatePassword = function() {
-  if (
-    (upperCase == false) ||
-    (lowerCase == false) ||
-    (numbers == false) ||
-    (special == false)
-    ) {
-    window.alert("Please select proper parameters for your password\n(Most websites require all types of letters now)\nPlease reload and retry");
-    return;
 
-  } else {
-    (upperCase == true) &&
-    (lowerCase == true) &&
-    (numbers == true) &&
-    (special == true)
-  } {
-    criteriaEntry();
-    window.alert("Your new password is\n" + criteriaEntry);
-    }
-}
 
-var password = generatePassword();
-var passwordText = document.querySelector("#password");
+
+
 
 
 // Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-generateBtn.addEventListener("click", writePassword);
 
 
 // Write password to the #password input
 function writePassword() {
-  passwordLength = window.prompt("How long do you want your password to be?\n(Between 8 and 16 Characters)");
-  var upperCase = window.confirm("Would you like to include uppercase letters?");
-  randomUpperCase();
-  var lowerCase = window.confirm("Would you like to include lowercase letters?");
-  randomLowerCase();
-  var numbers = window.confirm("Would you like to include numbers?");
-  randomNumber();
-  var special = window.confirm("Lastly, would you like to include special characters?\nSuch as @, %, or &?");
-  randomSpecial();
+  var password = generatePassword();
+  if (password){
+  var newPassword = arrayCreation();
+  var newPasswordText = document.querySelector("#password");
+  newPasswordText.textContent = ('Your new password is\n' + newPassword);
+  //newPasswordText.value = newPassword;
+  } else {
+    window.alert("You messed up! Please select a password length between 8 and 128 characters.")
+  }
+}
 
-  var criteriaEntry = function() {
-    ((upperCase == randomUpperCase())(lowerCase == randomLowerCase())(numbers == randomNumber())(special == randomSpecial()) * passwordLength);
+function arrayCreation() {
+  var password = "";
+  for (var i = 0; i < lengthChoices; i++) {
+    var indexVal = Math.floor(Math.random() * combinedChoices.length);
+    password = password + combinedChoices[indexVal];
   }
 
-  generatePassword();
-  
-      criteriaEntry();
-      window.alert("Your new password is\n" + criteriaEntry);
-  
-  
+}
+
+var generatePassword = function() {
+  lengthChoices = window.prompt("How long do you want your password to be?\n(Between 8 and 128 Characters");
+  if (lengthChoices > 8 && lengthChoices < 128){
+    if (window.confirm("Do you want to include Uppercase letters?")){
+      combinedChoices = combinedChoices.concat(arrayUpperCase)
+    }
+    if (window.confirm("Do you want to include Lowercase letters?")){
+      combinedChoices = combinedChoices.concat(arrayLowerCase)
+    }
+    if (window.confirm("Do you want to include Numbers?")){
+    combinedChoices = combinedChoices.concat(arrayNumber)
+    }
+    if (window.confirm("Do you want to include Special Characters?\n(Such as !, @ or %?)")){
+      combinedChoices = combinedChoices.concat(arraySpecial)
+    }
+   return true
+  }
+  else {
+    window.alert("Please select a valid password length and at least one character type!")
+  }
 }
 
 
+var generateBtn = document.querySelector("#generate");
+generateBtn.addEventListener("click", writePassword);
 
 
 
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword());
+
+
+//Add event listener to generate button
